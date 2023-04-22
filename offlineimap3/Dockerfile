@@ -40,6 +40,6 @@ VOLUME /home/nonroot/mail
 
 # Make sure you update Python version in path
 COPY --from=builder /home/nonroot/.local/lib/python3.11/site-packages /home/nonroot/.local/lib/python3.11/site-packages
-COPY remote-src/. .
+COPY remote-src/**/*.py .
 
 ENTRYPOINT [ "python", "/app/offlineimap.py" ]
