@@ -21,7 +21,7 @@
 
 FROM cgr.dev/chainguard/python:3.11-dev as builder
 
-USER nonroot
+# USER nonroot
 
 WORKDIR /app
 
