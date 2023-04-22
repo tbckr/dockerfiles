@@ -63,4 +63,4 @@ tasks:
   build:all:
     desc: Build all docker containers
     cmds:
-      - build-all.sh
+      - ./build-all.sh
