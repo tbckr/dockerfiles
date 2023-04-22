@@ -24,7 +24,7 @@ FROM cgr.dev/chainguard/python:3.11-dev as builder
 WORKDIR /app
 COPY remote-src/requirements.txt .
 
-# Remove gssapi[kerberos] from requirements.txt
+# fix: remove gssapi[kerberos] from requirements.txt
 USER root
 RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt
 
