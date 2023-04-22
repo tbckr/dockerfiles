@@ -46,17 +46,11 @@ build_and_push() {
   # absolutely no reason
   n=0
   until [ $n -ge 5 ]; do
-    docker push --disable-content-trust=false "${REPO_URL}/${base}:${suite}" && break
+    docker push "${REPO_URL}/${base}:${suite}" && break
     echo "Try #$n failed... sleeping for 15 seconds"
     n=$((n + 1))
     sleep 15
   done
-
-  # also push the tag latest for "stable" (chrome), "tools" (wireguard) or "3.5" tags for zookeeper
-  if [[ "$suite" == "stable" ]] || [[ "$suite" == "3.6" ]] || [[ "$suite" == "tools" ]]; then
-    docker tag "${REPO_URL}/${base}:${suite}" "${REPO_URL}/${base}:latest"
-    docker push --disable-content-trust=false "${REPO_URL}/${base}:latest"
-  fi
 }
 
 dofile() {
@@ -83,7 +77,7 @@ dofile() {
 main() {
   # get the dockerfiles
   IFS=$'\n'
-  mapfile -t files < <(find -L . -iname '*Dockerfile' | sed 's|./||' | sort)
+  mapfile -t files < <(find -L . -maxdepth 2 -iname '*Dockerfile' | sed 's|./||' | sort)
   unset IFS
 
   # build all dockerfiles
