@@ -24,15 +24,14 @@ FROM cgr.dev/chainguard/python:3.11-dev as builder
 WORKDIR /app
 COPY remote-src/requirements.txt .
 
-USER root
 # Remove gssapi[kerberos] from requirements.txt
+USER root
 RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt
 
 USER nonroot
 RUN pip install -r requirements.txt --user
 
 COPY remote-src/. .
-RUN python setup.py install --user
 
 FROM cgr.dev/chainguard/python:3.11
 
@@ -43,5 +42,7 @@ VOLUME /home/nonroot/mail
 
 # Make sure you update Python version in path
 COPY --from=builder /home/nonroot/.local/lib/python3.11/site-packages /home/nonroot/.local/lib/python3.11/site-packages
+COPY --from=builder /app/offlineimap .
+COPY --from=builder /app/offlineimap.py .
 
-ENTRYPOINT [ "offlineimap" ]
+ENTRYPOINT [ "python", "offlineimap.py" ]
