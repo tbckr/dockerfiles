@@ -27,6 +27,8 @@ on:
       - main
     paths:
       - "**/Dockerfile"
+      - "build-all.sh"
+      - ".github/workflows/build.yml"
   workflow_dispatch:
   schedule:
     - cron: "0 4 * * *" # run once a day at 4 AM
