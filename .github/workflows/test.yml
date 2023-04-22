@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-name: Build all Docker images
+name: Test new Dockerfiles
 
 on:
   pull_request:
