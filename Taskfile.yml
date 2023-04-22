@@ -58,7 +58,7 @@ tasks:
   submodule:update:
     desc: Update submodules
     cmds:
-      - git submodule update --init --recursive
+      - git submodule update --init --recursive --force
 
   build:all:
     desc: Build all docker containers
