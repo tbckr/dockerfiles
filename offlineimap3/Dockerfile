@@ -28,8 +28,8 @@ WORKDIR /app
 COPY remote-src/requirements.txt .
 
 # Remove gssapi[kerberos] from requirements.txt
-RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt  && \
-    pip install -r requirements.txt --user
+# sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt  && \
+RUN pip install -r requirements.txt --user
 
 COPY remote-src/. .
 
