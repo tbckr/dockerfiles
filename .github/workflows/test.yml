@@ -19,58 +19,37 @@
 #
 # SPDX-License-Identifier: MIT
 
-# https://taskfile.dev
+name: Build all Docker images
 
-version: '3'
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "**/Dockerfile"
+      - "test.sh"
+      - ".github/workflows/test.yml"
+  workflow_dispatch:
 
-tasks:
-  setup:precommit:
-    desc: Setup git hooks
-    preconditions:
-      - which python3
-    cmds:
-      - python3 -m pip install --upgrade --user pre-commit
-      - pre-commit install
+concurrency:
+  group: ${{ github.workflow }}-$${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
-  setup:go-tools:
-    desc: Install tools
-    preconditions:
-      - which go
-    cmds:
-      - go install github.com/google/addlicense@latest
-      # - go install github.com/terraform-linters/tflint@latest
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      # Checkout repo
+      - uses: actions/checkout@v3
+      # Install task.dev
+      - uses: arduino/setup-task@v1
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-  setup:
-    desc: Setup development environment
-    cmds:
-      - task: setup:precommit
-      - task: setup:go-tools
-
-  license-header:
-    desc: Add license header to all files
-    cmds:
-      - |
-        addlicense -c "Tim <tbckr>" -l MIT -s -v \
-        -ignore ".idea/**" \
-        -ignore ".task/**" \
-        .
-
-  submodule:update:
-    desc: Update submodules
-    cmds:
-      - git submodule update --init --recursive --force
-
-  build:all:
-    desc: Build all docker containers
-    cmds:
-      - ./build-all.sh
-
-  ci:
-    desc: Run CI pipeline
-    cmds:
-      - task: test
-
-  test:
-    desc: Run tests
-    cmds:
-      - ./test.sh
+      # Release with goreleaser
+      - name: Build and push Docker images
+        run: |
+          task ci
