@@ -33,6 +33,12 @@ RUN pip install -r requirements.txt --user
 
 FROM cgr.dev/chainguard/python:3.11
 
+LABEL org.opencontainers.image.title="offlineimap3" \
+      org.opencontainers.image.description="offlineimap3" \
+      org.opencontainers.image.url="https://github.com/tbckr/dockerfiles/tree/main/offlineimap3" \
+      org.opencontainers.image.src="https://github.com/tbckr/dockerfiles/tree/main/offlineimap3" \
+      org.opencontainers.image.license="MIT"
+
 WORKDIR /app
 
 VOLUME /home/nonroot/.offlineimaprc
