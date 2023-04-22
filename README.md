@@ -1,7 +1,5 @@
 # Dockerfiles
 
-This repository contains a collection of Dockerfiles for various projects.
+This repository contains a collection of Dockerfiles I created for various purposes.
 
-## Acknowledgements
-
-Some scripts are based on the work of [jessfraz/dockerfiles](https://github.com/jessfraz/dockerfiles).
+The images are published on GitHub Package Registry at ghcr.io.
