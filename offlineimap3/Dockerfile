@@ -24,7 +24,8 @@ FROM cgr.dev/chainguard/python:3.11-dev as builder
 WORKDIR /app
 COPY remote-src/requirements.txt .
 
-# fix: remove gssapi[kerberos] from requirements.txt
+# TODO: kerberos is not installed in the builder image
+# fix: comment gssapi[kerberos] in requirements.txt to avoid build error
 USER root
 RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt
 
