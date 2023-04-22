@@ -21,6 +21,8 @@
 
 FROM cgr.dev/chainguard/python:3.11-dev as builder
 
+USER nonroot
+
 WORKDIR /app
 
 COPY remote-src/requirements.txt .
