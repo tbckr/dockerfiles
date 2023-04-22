@@ -19,48 +19,28 @@
 #
 # SPDX-License-Identifier: MIT
 
-# https://taskfile.dev
+FROM cgr.dev/chainguard/python:3.11-dev as builder
 
-version: '3'
+WORKDIR /app
 
-tasks:
-  setup:precommit:
-    desc: Setup git hooks
-    preconditions:
-      - which python3
-    cmds:
-      - python3 -m pip install --upgrade --user pre-commit
-      - pre-commit install
+COPY remote-src/requirements.txt .
 
-  setup:go-tools:
-    desc: Install tools
-    preconditions:
-      - which go
-    cmds:
-      - go install github.com/google/addlicense@latest
-      # - go install github.com/terraform-linters/tflint@latest
+# Remove gssapi[kerberos] from requirements.txt
+RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt  && \
+    pip install -r requirements.txt --user
 
-  setup:
-    desc: Setup development environment
-    cmds:
-      - task: setup:precommit
-      - task: setup:go-tools
+COPY remote-src/. .
 
-  license-header:
-    desc: Add license header to all files
-    cmds:
-      - |
-        addlicense -c "Tim <tbckr>" -l MIT -s -v \
-        -ignore ".idea/**" \
-        -ignore ".task/**" \
-        .
+RUN python setup.py install --user
 
-  submodule:update:
-    desc: Update submodules
-    cmds:
-      - git submodule update --init --recursive
+FROM cgr.dev/chainguard/python:3.11
 
-  build:all:
-    desc: Build all docker containers
-    cmds:
-      - build-all.sh
+WORKDIR /app
+
+VOLUME /home/nonroot/.offlineimaprc
+VOLUME /home/nonroot/mail
+
+# Make sure you update Python version in path
+COPY --from=builder /home/nonroot/.local/lib/python3.11/site-packages /home/nonroot/.local/lib/python3.11/site-packages
+
+ENTRYPOINT [ "offlineimap" ]
