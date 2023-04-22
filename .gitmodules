@@ -1,0 +1,3 @@
+[submodule "offlineimap3/remote-src"]
+	path = offlineimap3/remote-src
+	url = https://github.com/OfflineIMAP/offlineimap3.git
