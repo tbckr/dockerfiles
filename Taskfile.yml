@@ -39,6 +39,7 @@ tasks:
     cmds:
       - go install github.com/google/addlicense@latest
       # - go install github.com/terraform-linters/tflint@latest
+      - go install github.com/caarlos0/svu@latest
 
   setup:
     desc: Setup development environment
@@ -54,3 +55,18 @@ tasks:
         -ignore ".idea/**" \
         -ignore ".task/**" \
         .
+
+  release:
+    desc: Create a new tag with new semantic version and update CHANGELOG.md
+    aliases: [ "r" ]
+    vars:
+      NEXT:
+        sh: svu n
+    cmds:
+      - git tag {{.NEXT}}
+      - git push --tags
+
+  goreleaser:
+    desc: Run goreleaser to create a new release on GitHub
+    cmds:
+      - goreleaser release --clean
