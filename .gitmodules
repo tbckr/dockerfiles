@@ -1,3 +1,3 @@
-[submodule "offlineimap3/remote-src"]
+[submodule "offlineimap3"]
 	path = offlineimap3/remote-src
 	url = https://github.com/OfflineIMAP/offlineimap3.git
