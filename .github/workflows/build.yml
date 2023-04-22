@@ -22,16 +22,16 @@
 name: Build all Docker images
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "**/Dockerfile"
-      - "build-all.sh"
-      - ".github/workflows/build.yml"
+  #  push:
+  #    branches:
+  #      - main
+  #    paths:
+  #      - "**/Dockerfile"
+  #      - "build-all.sh"
+  #      - ".github/workflows/build.yml"
   workflow_dispatch:
-  schedule:
-    - cron: "0 4 * * *" # run once a day at 4 AM
+#  schedule:
+#    - cron: "0 4 * * *" # run once a day at 4 AM
 
 env:
   REGISTRY: ghcr.io
