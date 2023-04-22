@@ -21,18 +21,17 @@
 
 FROM cgr.dev/chainguard/python:3.11-dev as builder
 
-# USER nonroot
-
 WORKDIR /app
-
 COPY remote-src/requirements.txt .
 
+USER root
 # Remove gssapi[kerberos] from requirements.txt
-# sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt  && \
+RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt
+
+USER nonroot
 RUN pip install -r requirements.txt --user
 
 COPY remote-src/. .
-
 RUN python setup.py install --user
 
 FROM cgr.dev/chainguard/python:3.11
