@@ -31,8 +31,6 @@ RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt
 USER nonroot
 RUN pip install -r requirements.txt --user
 
-COPY remote-src/. .
-
 FROM cgr.dev/chainguard/python:3.11
 
 WORKDIR /app
@@ -42,7 +40,6 @@ VOLUME /home/nonroot/mail
 
 # Make sure you update Python version in path
 COPY --from=builder /home/nonroot/.local/lib/python3.11/site-packages /home/nonroot/.local/lib/python3.11/site-packages
-COPY --from=builder /app/offlineimap .
-COPY --from=builder /app/offlineimap.py .
+COPY remote-src/. .
 
-ENTRYPOINT [ "python", "offlineimap.py" ]
+ENTRYPOINT [ "python", "/app/offlineimap.py" ]
