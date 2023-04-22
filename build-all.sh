@@ -77,7 +77,7 @@ dofile() {
 main() {
   # get the dockerfiles
   IFS=$'\n'
-  mapfile -t files < <(find -L . -maxdepth 2 -iname '*Dockerfile' | sed 's|./||' | sort)
+  mapfile -t files < <(find -L . -iname '*Dockerfile' -not -path '*/remote-src/*' | sed 's|./||' | sort)
   unset IFS
 
   # build all dockerfiles
