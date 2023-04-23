@@ -1,4 +1,4 @@
-FROM cgr.dev/chainguard/node:18.16
+FROM cgr.dev/chainguard/node:20.0
 
 LABEL org.opencontainers.image.title="markdownlint" \
       org.opencontainers.image.description="markdownlint" \
