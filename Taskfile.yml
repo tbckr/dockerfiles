@@ -56,6 +56,16 @@ tasks:
         -ignore "**/remote-src/**" \
         .
 
+  validate:devtools:
+    desc: Validate that all necessary devtools are installed
+    cmds:
+      - which go 1>/dev/null || (echo "go is not installed" && exit 1)
+      - which python3 1>/dev/null || (echo "python3 is not installed" && exit 1)
+      - which docker 1>/dev/null || (echo "docker is not installed" && exit 1)
+      - which task 1>/dev/null || (echo "task is not installed" && exit 1)
+      - which pre-commit 1>/dev/null || (echo "pre-commit is not installed" && exit 1)
+      - which addlicense 1>/dev/null || (echo "addlicense is not installed" && exit 1)
+
   lint:md:
     desc: Lint markdown files
     cmds:
