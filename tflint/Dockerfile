@@ -19,23 +19,42 @@
 #
 # SPDX-License-Identifier: MIT
 
-FROM --platform=$BUILDPLATFORM golang:1.20-alpine3.17 as builder
+FROM cgr.dev/chainguard/curl:8.0
 
-ARG TARGETOS TARGETARCH
+ARG TARGETOS=linux
+ARG TARGETARCH=amd64
 
-RUN apk add --no-cache make
+ARG TFLINT_VERSION=0.46.1
+ARG AWS_VERSION=0.23.0
+ARG AZURERM_VERSION=0.23.0
+ARG GOOGLE_VERSION=0.23.1
 
-WORKDIR /tflint
-COPY . /tflint
-RUN GOOS=$TARGETOS GOARCH=$TARGETARCH make build
+RUN curl -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
+  && unzip /tmp/tflint.zip -d /usr/local/bin \
+  && rm /tmp/tflint.zip
 
-FROM alpine:3.17.3
+RUN mkdir -p ~/.tflint.d/plugins
+
+RUN curl -O /tmp/tflint-ruleset-aws.zip https://github.com/terraform-linters/tflint-ruleset-aws/releases/download/v"${AWS_VERSION}"/tflint-ruleset-aws_"${TARGETOS}"_"${TARGETARCH}".zip \
+  && unzip /tmp/tflint-ruleset-aws.zip -d ~/.tflint.d/plugins \
+  && rm /tmp/tflint-ruleset-aws.zip
+
+RUN curl -O /tmp/tflint-ruleset-azurerm.zip https://github.com/terraform-linters/tflint-ruleset-azurerm/releases/download/v"${AZURERM_VERSION}"/tflint-ruleset-azurerm_"${TARGETOS}"_"${TARGETARCH}".zip \
+  && unzip /tmp/tflint-ruleset-azurerm.zip -d ~/.tflint.d/plugins \
+  && rm /tmp/tflint-ruleset-azurerm.zip
+
+RUN curl -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/tflint-ruleset-google/releases/download/v"${GOOGLE_VERSION}"/tflint-ruleset-google_"${TARGETOS}"_"${TARGETARCH}".zip \
+  && unzip /tmp/tflint-ruleset-google.zip -d ~/.tflint.d/plugins \
+  && rm /tmp/tflint-ruleset-google.zip
+
+FROM cgr.dev/chainguard/static:latest
 
 LABEL maintainer=terraform-linters
 
 RUN apk add --no-cache ca-certificates
 
-COPY --from=builder /tflint/dist/tflint /usr/local/bin
+COPY --from=builder /usr/local/bin/tflint /usr/local/bin
+COPY --from=builder /root/.tflint.d /root/.tflint.d
 
 ENTRYPOINT ["tflint"]
 WORKDIR /data
