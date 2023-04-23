@@ -50,6 +50,6 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Release with goreleaser
-      - name: Build and push Docker images
+      - name: Build Docker images
         run: |
           task ci
