@@ -43,6 +43,9 @@ jobs:
     steps:
       # Checkout repo
       - uses: actions/checkout@v3
+        with:
+          # FIX: this is needed to get the full history, otherwise the test will fail
+          fetch-depth: 0
       # Install task.dev
       - uses: arduino/setup-task@v1
         with:
@@ -50,6 +53,6 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       # Release with goreleaser
-      - name: Build and push Docker images
+      - name: Build Docker images
         run: |
           task ci
