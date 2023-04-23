@@ -31,7 +31,7 @@ on:
       - ".github/workflows/build.yml"
   workflow_dispatch:
   schedule:
-    - cron: "0 4 * * 1" # run once a day at 4 AM
+    - cron: "0 4 * * 1" # run on mondays at 4 AM
 
 env:
   REGISTRY: ghcr.io
