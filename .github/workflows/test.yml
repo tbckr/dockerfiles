@@ -52,5 +52,5 @@ jobs:
       # Release with goreleaser
       - name: Build and push Docker images
         run: |
-          git remote -l
+          git remote -v
           task ci
