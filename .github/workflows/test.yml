@@ -43,6 +43,8 @@ jobs:
     steps:
       # Checkout repo
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       # Install task.dev
       - uses: arduino/setup-task@v1
         with:
@@ -52,5 +54,4 @@ jobs:
       # Release with goreleaser
       - name: Build Docker images
         run: |
-          git fetch
           task ci
