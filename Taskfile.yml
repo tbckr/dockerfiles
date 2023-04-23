@@ -56,6 +56,16 @@ tasks:
         -ignore "**/remote-src/**" \
         .
 
+  lint:md:
+    desc: Lint markdown files
+    cmds:
+      - docker run --rm --pull always -v $(pwd):/app:ro markdownlint . --config=.mdl_config.yaml
+
+  lint:
+    desc: Lint all files
+    cmds:
+      - task: lint:md
+
   submodule:update:
     desc: Update submodules
     cmds:
