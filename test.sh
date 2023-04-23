@@ -33,7 +33,9 @@ VALIDATE_HEAD="$(git rev-parse --verify HEAD)"
 git fetch -q "$VALIDATE_REPO" "refs/heads/$VALIDATE_BRANCH"
 VALIDATE_UPSTREAM="$(git rev-parse --verify FETCH_HEAD)"
 
-VALIDATE_COMMIT_DIFF="$VALIDATE_UPSTREAM...$VALIDATE_HEAD"
+# FIX: The error message indicates that the script is trying to compare two unrelated branches, which means they do not share a common base commit. The git diff command cannot process such a comparison.
+# VALIDATE_COMMIT_DIFF="$VALIDATE_UPSTREAM...$VALIDATE_HEAD"
+VALIDATE_COMMIT_DIFF="$VALIDATE_UPSTREAM $VALIDATE_HEAD"
 
 validate_diff() {
   if [ "$VALIDATE_UPSTREAM" != "$VALIDATE_HEAD" ]; then
