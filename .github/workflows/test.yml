@@ -52,4 +52,5 @@ jobs:
       # Release with goreleaser
       - name: Build Docker images
         run: |
+          git fetch
           task ci
