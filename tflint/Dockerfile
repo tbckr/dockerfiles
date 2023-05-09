@@ -52,7 +52,7 @@ RUN wget -O /tmp/tflint-ruleset-azurerm.zip https://github.com/terraform-linters
 
 RUN wget -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/tflint-ruleset-google/releases/download/v"${GOOGLE_VERSION}"/tflint-ruleset-google_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-google.zip -d ~/.tflint.d/plugins \
-  && rm /tmp/tflint-ruleset-google.zip
+  && rm /tmp/tflint-ruleset-google.zip \
 
 
 FROM ${MULTISTAGE_IMAGE_2}
@@ -63,8 +63,11 @@ LABEL org.opencontainers.image.title="tflint" \
       org.opencontainers.image.src="https://github.com/tbckr/dockerfiles/tree/main/tflint" \
       org.opencontainers.image.license="MIT"
 
-COPY --from=builder /usr/local/bin/tflint /usr/local/bin
-COPY --from=builder /root/.tflint.d /root/.tflint.d
+COPY --from=builder /usr/local/bin/tflint /tflint
+COPY --from=builder /root/.tflint.d /home/nonroot/.tflint.d
 
-ENTRYPOINT ["tflint"]
+VOLUME /data
 WORKDIR /data
+
+ENTRYPOINT ["/tflint"]
+CMD ["--help"]

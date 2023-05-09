@@ -31,15 +31,17 @@
   ],
   "regexManagers": [
     {
+      "description": "Update installed software in docker images. Versions are set in ENV variables.",
       "fileMatch": [
         "^Dockerfile$"
       ],
       "matchStrings": [
-        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s"
       ],
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
+      "description": "Update docker base images. Versions are set in ARG variables instead of in the FROM command.",
       "fileMatch": [
         "^Dockerfile$"
       ],
@@ -49,6 +51,7 @@
       "datasourceTemplate": "docker"
     },
     {
+      "description": "Update docker base images in multi-stage builds. Versions are set in ARG variables instead of in the FROM command.",
       "fileMatch": [
         "^Dockerfile$"
       ],
