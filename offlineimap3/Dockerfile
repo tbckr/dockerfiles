@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG MULTISTAGE_IMAGE_1=cgr.dev/chainguard/python:3.11-dev
+ARG MULTISTAGE_IMAGE_1=cgr.dev/chainguard/python:3.11-dev@sha256:a320173da257b6497a36354952db1a8221fecfbd08099ec8b3ae2e507c9f2445
 FROM ${MULTISTAGE_IMAGE_1} as builder
 
 WORKDIR /app

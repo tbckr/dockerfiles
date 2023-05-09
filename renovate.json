@@ -19,18 +19,11 @@
   },
   "packageRules": [
     {
-      "description": "Automatically merge digest updates",
-      "matchUpdateTypes": [
-        "digest"
-      ],
-      "automerge": true,
-      "automergeType": "branch"
-    },
-    {
       "description": "Automatically merge minor and patch-level updates",
       "matchUpdateTypes": [
         "minor",
-        "patch"
+        "patch",
+        "digest"
       ],
       "automerge": true,
       "automergeType": "branch"
