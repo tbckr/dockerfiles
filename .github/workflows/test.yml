@@ -46,6 +46,7 @@ jobs:
         with:
           # FIX: this is needed to get the full history, otherwise the test will fail
           fetch-depth: 0
+          submodules: true
       # Install task.dev
       - uses: arduino/setup-task@v1
         with:
