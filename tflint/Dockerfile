@@ -33,7 +33,7 @@ ENV TFLINT_VERSION=0.46.1
 ENV AWS_VERSION=0.23.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-azurerm
 ENV AZURERM_VERSION=0.23.0
-# renovate: datasource=github-releases depName=com/terraform-linters/tflint-ruleset-google
+# renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-google
 ENV GOOGLE_VERSION=0.23.1
 
 RUN wget -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
@@ -52,7 +52,7 @@ RUN wget -O /tmp/tflint-ruleset-azurerm.zip https://github.com/terraform-linters
 
 RUN wget -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/tflint-ruleset-google/releases/download/v"${GOOGLE_VERSION}"/tflint-ruleset-google_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-google.zip -d ~/.tflint.d/plugins \
-  && rm /tmp/tflint-ruleset-google.zip \
+  && rm /tmp/tflint-ruleset-google.zip
 
 
 FROM ${MULTISTAGE_IMAGE_2}
