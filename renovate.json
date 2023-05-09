@@ -32,22 +32,12 @@
   ],
   "regexManagers": [
     {
-      "description": "Update docker base images. Versions are set in ARG variables instead of in the FROM command.",
+      "description": "Update docker (multi-stage) base images",
       "fileMatch": [
         "^Dockerfile$"
       ],
       "matchStrings": [
-        "ARG IMAGE=(?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>sha256:[a-f0-9]+)$"
-      ],
-      "datasourceTemplate": "docker"
-    },
-    {
-      "description": "Update docker base images in multi-stage builds. Versions are set in ARG variables instead of in the FROM command.",
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG MULTISTAGE_IMAGE_.*?=(?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>sha256:[a-f0-9]+)$"
+        "ARG IMAGE_*?.*?=(?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>sha256:[a-f0-9]+)$"
       ],
       "datasourceTemplate": "docker"
     }

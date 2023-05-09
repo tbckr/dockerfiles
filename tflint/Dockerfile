@@ -19,10 +19,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG MULTISTAGE_IMAGE_1=cgr.dev/chainguard/wolfi-base:latest@sha256:868f1b60b095960d1acb1c9a2777887ee59fdc1aa6988e58c25c1d6ad82f42fc
-ARG MULTISTAGE_IMAGE_2=cgr.dev/chainguard/static:latest@sha256:3ee375b4539717ebcdb96ffc9d94ebb15bc5d950b9d714bd0545997b5aec1c19
+ARG IMAGE_1=cgr.dev/chainguard/wolfi-base:latest@sha256:868f1b60b095960d1acb1c9a2777887ee59fdc1aa6988e58c25c1d6ad82f42fc
+ARG IMAGE_2=cgr.dev/chainguard/static:latest@sha256:3ee375b4539717ebcdb96ffc9d94ebb15bc5d950b9d714bd0545997b5aec1c19
 
-FROM ${MULTISTAGE_IMAGE_1} as builder
+FROM ${IMAGE_1} as builder
 
 ENV TARGETOS=linux
 ENV TARGETARCH=amd64
@@ -55,7 +55,7 @@ RUN wget -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/
   && rm /tmp/tflint-ruleset-google.zip
 
 
-FROM ${MULTISTAGE_IMAGE_2}
+FROM ${IMAGE_2}
 
 LABEL org.opencontainers.image.title="tflint" \
       org.opencontainers.image.description="tflint" \
