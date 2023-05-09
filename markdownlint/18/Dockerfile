@@ -19,7 +19,11 @@
 #
 # SPDX-License-Identifier: MIT
 
-FROM cgr.dev/chainguard/node:18.16
+ARG IMAGE=cgr.dev/chainguard/node:18.16@sha256:45720c0cb6b276a2885af4d97312aa6e74ad21a8a1caf9d1c1bb2f01dfc0a6f
+FROM ${IMAGE}
+
+# renovate: datasource=npm depName=markdownlint-cli
+ENV MARKDOWNLINT_VERSION=0.34.0
 
 LABEL org.opencontainers.image.title="markdownlint" \
       org.opencontainers.image.description="markdownlint" \
@@ -31,7 +35,7 @@ VOLUME /app
 WORKDIR /app
 
 USER root
-RUN npm install -g markdownlint-cli
+RUN npm install -g markdownlint-cli@${MARKDOWNLINT_VERSION}
 
 USER node
 ENTRYPOINT ["markdownlint"]
