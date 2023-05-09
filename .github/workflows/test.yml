@@ -42,7 +42,7 @@ jobs:
       contents: read
     steps:
       # Checkout repo
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
         with:
           # FIX: this is needed to get the full history, otherwise the test will fail
           fetch-depth: 0
