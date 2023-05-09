@@ -20,6 +20,8 @@
 # SPDX-License-Identifier: MIT
 
 ARG MULTISTAGE_IMAGE_1=cgr.dev/chainguard/python:3.11-dev@sha256:a320173da257b6497a36354952db1a8221fecfbd08099ec8b3ae2e507c9f2445
+ARG MULTISTAGE_IMAGE_2=cgr.dev/chainguard/python:3.11@sha256:484033ba526c32c6cf660901bdc3a93d6ece43832f44fc8023beeae26706e830
+
 FROM ${MULTISTAGE_IMAGE_1} as builder
 
 WORKDIR /app
@@ -33,7 +35,6 @@ RUN sed -i 's/^gssapi\[kerberos\]/#&/' requirements.txt
 USER nonroot
 RUN pip install -r requirements.txt --user
 
-ARG MULTISTAGE_IMAGE_2=cgr.dev/chainguard/python:3.11@sha256:484033ba526c32c6cf660901bdc3a93d6ece43832f44fc8023beeae26706e830
 FROM ${MULTISTAGE_IMAGE_2}
 
 LABEL org.opencontainers.image.title="offlineimap3" \
