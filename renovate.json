@@ -5,6 +5,8 @@
     ":semanticCommits",
     ":preserveSemverRanges",
     ":enablePreCommit",
+    "docker:pinDigests",
+    "helpers:pinGitHubActionDigests",
     "regexManagers:dockerfileVersions"
   ],
   "stabilityDays": 7,
@@ -13,6 +15,7 @@
     "dependencies"
   ],
   "vulnerabilityAlerts": {
+    "enabled": true,
     "labels": [
       "type:security"
     ],
