@@ -19,7 +19,9 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG MULTISTAGE_IMAGE_1=cgr.dev/chainguard/curl:8.0
+ARG MULTISTAGE_IMAGE_1=cgr.dev/chainguard/wolfi-base:latest@sha256:868f1b60b095960d1acb1c9a2777887ee59fdc1aa6988e58c25c1d6ad82f42fc
+ARG MULTISTAGE_IMAGE_2=cgr.dev/chainguard/static:latest@sha256:3ee375b4539717ebcdb96ffc9d94ebb15bc5d950b9d714bd0545997b5aec1c19
+
 FROM ${MULTISTAGE_IMAGE_1} as builder
 
 ENV TARGETOS=linux
@@ -34,31 +36,32 @@ ENV AZURERM_VERSION=0.23.0
 # renovate: datasource=github-releases depName=com/terraform-linters/tflint-ruleset-google
 ENV GOOGLE_VERSION=0.23.1
 
-RUN curl -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint.zip -d /usr/local/bin \
   && rm /tmp/tflint.zip
 
 RUN mkdir -p ~/.tflint.d/plugins
 
-RUN curl -O /tmp/tflint-ruleset-aws.zip https://github.com/terraform-linters/tflint-ruleset-aws/releases/download/v"${AWS_VERSION}"/tflint-ruleset-aws_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint-ruleset-aws.zip https://github.com/terraform-linters/tflint-ruleset-aws/releases/download/v"${AWS_VERSION}"/tflint-ruleset-aws_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-aws.zip -d ~/.tflint.d/plugins \
   && rm /tmp/tflint-ruleset-aws.zip
 
-RUN curl -O /tmp/tflint-ruleset-azurerm.zip https://github.com/terraform-linters/tflint-ruleset-azurerm/releases/download/v"${AZURERM_VERSION}"/tflint-ruleset-azurerm_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint-ruleset-azurerm.zip https://github.com/terraform-linters/tflint-ruleset-azurerm/releases/download/v"${AZURERM_VERSION}"/tflint-ruleset-azurerm_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-azurerm.zip -d ~/.tflint.d/plugins \
   && rm /tmp/tflint-ruleset-azurerm.zip
 
-RUN curl -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/tflint-ruleset-google/releases/download/v"${GOOGLE_VERSION}"/tflint-ruleset-google_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/tflint-ruleset-google/releases/download/v"${GOOGLE_VERSION}"/tflint-ruleset-google_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-google.zip -d ~/.tflint.d/plugins \
   && rm /tmp/tflint-ruleset-google.zip
 
 
-ARG MULTISTAGE_IMAGE_2=cgr.dev/chainguard/static:latest@sha256:3ee375b4539717ebcdb96ffc9d94ebb15bc5d950b9d714bd0545997b5aec1c19
 FROM ${MULTISTAGE_IMAGE_2}
 
-LABEL maintainer=terraform-linters
-
-RUN apk add --no-cache ca-certificates
+LABEL org.opencontainers.image.title="tflint" \
+      org.opencontainers.image.description="tflint" \
+      org.opencontainers.image.url="https://github.com/tbckr/dockerfiles/tree/main/tflint" \
+      org.opencontainers.image.src="https://github.com/tbckr/dockerfiles/tree/main/tflint" \
+      org.opencontainers.image.license="MIT"
 
 COPY --from=builder /usr/local/bin/tflint /usr/local/bin
 COPY --from=builder /root/.tflint.d /root/.tflint.d
