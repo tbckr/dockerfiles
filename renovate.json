@@ -1,48 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    ":semanticCommits",
-    ":preserveSemverRanges",
-    ":enablePreCommit",
-    "docker:pinDigests",
-    "helpers:pinGitHubActionDigests",
-    "regexManagers:dockerfileVersions"
-  ],
-  "stabilityDays": 7,
-  "ignorePaths": [],
-  "labels": [
-    "dependencies"
-  ],
-  "vulnerabilityAlerts": {
-    "enabled": true,
-    "labels": [
-      "type:security"
-    ],
-    "stabilityDays": 0
-  },
-  "packageRules": [
-    {
-      "description": "Automatically merge minor and patch-level updates",
-      "matchUpdateTypes": [
-        "minor",
-        "patch",
-        "digest"
-      ],
-      "automerge": true,
-      "automergeType": "branch"
-    }
-  ],
-  "regexManagers": [
-    {
-      "description": "Update docker (multi-stage) base images",
-      "fileMatch": [
-        "^Dockerfile$"
-      ],
-      "matchStrings": [
-        "ARG IMAGE_*?.*?=(?<depName>.*?):(?<currentValue>.*?)@(?<currentDigest>sha256:[a-f0-9]+)$"
-      ],
-      "datasourceTemplate": "docker"
-    }
+    "github>tbckr/renovate-config"
   ]
 }
