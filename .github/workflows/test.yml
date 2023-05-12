@@ -29,6 +29,12 @@ on:
       - "**/Dockerfile"
       - "test.sh"
       - ".github/workflows/test.yml"
+  push:
+    branches:
+      - 'renovate/**'
+    paths:
+      - "**/Dockerfile"
+      - ".github/workflows/test.yml"
   workflow_dispatch:
 
 concurrency:
