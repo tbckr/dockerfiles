@@ -20,7 +20,7 @@
 # SPDX-License-Identifier: MIT
 
 ARG IMAGE_1=cgr.dev/chainguard/wolfi-base:latest@sha256:3294a47a574f766c079f268268898a81ef24c9a83a7f98251c61c4a72b67f657
-ARG IMAGE_2=cgr.dev/chainguard/static:latest@sha256:c7cc7496526ad868bfdb0411544204d25a4a2a748d536ac9ae086fb04a2b08fc
+ARG IMAGE_2=cgr.dev/chainguard/static:latest@sha256:4da027e241598d68296061cd9a20ab835a8520bfd969e7f71352cb27a6a3d08a
 
 FROM ${IMAGE_1} as builder
 
