@@ -36,21 +36,21 @@ ENV AZURERM_VERSION=0.23.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-google
 ENV GOOGLE_VERSION=0.23.1
 
-RUN wget -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION#v}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint.zip -d /usr/local/bin \
   && rm /tmp/tflint.zip
 
 RUN mkdir -p ~/.tflint.d/plugins
 
-RUN wget -O /tmp/tflint-ruleset-aws.zip https://github.com/terraform-linters/tflint-ruleset-aws/releases/download/v"${AWS_VERSION}"/tflint-ruleset-aws_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint-ruleset-aws.zip https://github.com/terraform-linters/tflint-ruleset-aws/releases/download/v"${AWS_VERSION#v}"/tflint-ruleset-aws_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-aws.zip -d ~/.tflint.d/plugins \
   && rm /tmp/tflint-ruleset-aws.zip
 
-RUN wget -O /tmp/tflint-ruleset-azurerm.zip https://github.com/terraform-linters/tflint-ruleset-azurerm/releases/download/v"${AZURERM_VERSION}"/tflint-ruleset-azurerm_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint-ruleset-azurerm.zip https://github.com/terraform-linters/tflint-ruleset-azurerm/releases/download/v"${AZURERM_VERSION#v}"/tflint-ruleset-azurerm_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-azurerm.zip -d ~/.tflint.d/plugins \
   && rm /tmp/tflint-ruleset-azurerm.zip
 
-RUN wget -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/tflint-ruleset-google/releases/download/v"${GOOGLE_VERSION}"/tflint-ruleset-google_"${TARGETOS}"_"${TARGETARCH}".zip \
+RUN wget -O /tmp/tflint-ruleset-google.zip https://github.com/terraform-linters/tflint-ruleset-google/releases/download/v"${GOOGLE_VERSION#v}"/tflint-ruleset-google_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-google.zip -d ~/.tflint.d/plugins \
   && rm /tmp/tflint-ruleset-google.zip
 
