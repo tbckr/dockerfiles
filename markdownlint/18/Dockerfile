@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG IMAGE=cgr.dev/chainguard/node:18.16@sha256:a14aa9c5c69267987020326470c276e06e3ba2401d3fedb023a86b901795e765
+ARG IMAGE=cgr.dev/chainguard/node:18.16@sha256:fa8d8bc6a1f98752306b50b28f02118f255e142046d8c06b378cb19fcceddc00
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=markdownlint-cli
