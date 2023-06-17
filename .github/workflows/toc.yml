@@ -43,4 +43,4 @@ jobs:
         uses: technote-space/toc-generator@9e238e7974de5fcf7b17b7acc54c896160dda0a3 # v4
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TARGET_PATHS: "licenses/3rd-party.md,licenses/base-images.md"
+          TARGET_PATHS: "licenses/3rd-party.md,licenses/docker-images.md"
