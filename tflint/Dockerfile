@@ -32,7 +32,7 @@ ENV TFLINT_VERSION=0.46.1
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-aws
 ENV AWS_VERSION=v0.23.1
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-azurerm
-ENV AZURERM_VERSION=0.23.0
+ENV AZURERM_VERSION=v0.24.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-google
 ENV GOOGLE_VERSION=0.23.1
 
