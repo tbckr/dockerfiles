@@ -8,6 +8,9 @@ These are the licenses for the base images used in the Dockerfiles.
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 <!-- param::isNotitle::true:: -->
 
+- [Details](#details)
+  - [Chainguard (Base) Images](#chainguard-base-images)
+
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ## Details
