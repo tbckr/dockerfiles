@@ -23,7 +23,7 @@ ARG IMAGE=cgr.dev/chainguard/node:18.16@sha256:bd0a383eccfa86a1d9f658389ebb60159
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=markdownlint-cli
-ENV MARKDOWNLINT_VERSION=0.34.0
+ENV MARKDOWNLINT_VERSION=0.35.0
 
 LABEL org.opencontainers.image.title="markdownlint" \
       org.opencontainers.image.description="markdownlint" \
