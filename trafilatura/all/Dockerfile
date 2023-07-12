@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG IMAGE_1=cgr.dev/chainguard/python:3.11-dev@sha256:3b6e070dbe4c01a913eac02743626b40a50f0cc37fa44fd34ed1f7c711a2adbe
+ARG IMAGE_1=cgr.dev/chainguard/python:3.11-dev@sha256:225f68a9eec3e29ce356a8e3699ab6eb75972082047115a75769d3ed2e78b17b
 ARG IMAGE_2=cgr.dev/chainguard/python:3.11@sha256:ba8dff86ed0c5f579972f14f0c41be6121c6b6cc77668161a7d8f3de9158d063
 
 FROM ${IMAGE_1} as builder
