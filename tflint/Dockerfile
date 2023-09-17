@@ -34,7 +34,7 @@ ENV AWS_VERSION=v0.26.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-azurerm
 ENV AZURERM_VERSION=v0.24.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-google
-ENV GOOGLE_VERSION=v0.24.0
+ENV GOOGLE_VERSION=v0.25.0
 
 RUN wget -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION#v}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint.zip -d /usr/local/bin \
