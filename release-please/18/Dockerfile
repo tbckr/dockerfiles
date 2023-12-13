@@ -23,7 +23,7 @@ ARG IMAGE=cgr.dev/chainguard/node:18.17@sha256:af073516c203b6bd0b55a77a806a0950b
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=release-please
-ENV RELEASE_PLEASE_VERSION=16.3.1
+ENV RELEASE_PLEASE_VERSION=16.4.0
 
 LABEL org.opencontainers.image.title="release-please" \
       org.opencontainers.image.description="release-please" \
