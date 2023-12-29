@@ -24,30 +24,43 @@
 version: '3'
 
 tasks:
-  setup:precommit:
-    desc: Setup git hooks
+  setup:install:
+    desc: Install devtools
     preconditions:
       - which python3
-    cmds:
-      - python3 -m pip install --upgrade --user pre-commit
-      - pre-commit install
-
-  setup:go-tools:
-    desc: Install tools
-    preconditions:
       - which go
     cmds:
+      - pip3 install --user --upgrade pre-commit
+      - pip3 install --user --upgrade commitizen
       - go install github.com/google/addlicense@latest
-      # - go install github.com/terraform-linters/tflint@latest
+
+  setup:validate:
+    desc: Validate that all necessary devtools are installed
+    cmds:
+      - which go 1>/dev/null || (echo "go is not installed" && exit 1)
+      - which python3 1>/dev/null || (echo "python3 is not installed" && exit 1)
+      - which pre-commit 1>/dev/null || (echo "pre-commit is not installed" && exit 1)
+      - which addlicense 1>/dev/null || (echo "addlicense is not installed" && exit 1)
+      - which cz 1>/dev/null || (echo "cz is not installed" && exit 1)
+
+  setup:hooks:
+    desc: Setup git hooks
+    preconditions:
+      - which pre-commit
+    cmds:
+      - pre-commit install
 
   setup:
     desc: Setup development environment
+    aliases:
+      - "s"
     cmds:
-      - task: setup:precommit
-      - task: setup:go-tools
+      - task: setup:hooks
 
   license-header:
     desc: Add license header to all files
+    aliases:
+      - "license"
     cmds:
       - |
         addlicense -c "Tim <tbckr>" -l MIT -s -v \
@@ -55,16 +68,6 @@ tasks:
         -ignore ".task/**" \
         -ignore "**/remote-src/**" \
         .
-
-  validate:devtools:
-    desc: Validate that all necessary devtools are installed
-    cmds:
-      - which go 1>/dev/null || (echo "go is not installed" && exit 1)
-      - which python3 1>/dev/null || (echo "python3 is not installed" && exit 1)
-      - which docker 1>/dev/null || (echo "docker is not installed" && exit 1)
-      - which task 1>/dev/null || (echo "task is not installed" && exit 1)
-      - which pre-commit 1>/dev/null || (echo "pre-commit is not installed" && exit 1)
-      - which addlicense 1>/dev/null || (echo "addlicense is not installed" && exit 1)
 
   lint:md:
     desc: Lint markdown files
