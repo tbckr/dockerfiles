@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG IMAGE_1=cgr.dev/chainguard/wolfi-base:latest@sha256:ddcb4e46542cfa7bedc955be6e8173bc61c64ee48b5267ec0b1cb58a2bf68026
+ARG IMAGE_1=cgr.dev/chainguard/wolfi-base:latest@sha256:09087ed84e6040a4f82530531171005212331f391b4e625275809346afd8d03b
 ARG IMAGE_2=cgr.dev/chainguard/static:latest@sha256:fce1fdce595332afe7f339303ae288c349c4e4139d926f8c7ccf4b7ca2911553
 
 FROM ${IMAGE_1} as builder
@@ -36,11 +36,17 @@ ENV AZURERM_VERSION=v0.25.1
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-google
 ENV GOOGLE_VERSION=v0.26.0
 
-RUN wget -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION#v}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
-  && unzip /tmp/tflint.zip -d /usr/local/bin \
-  && rm /tmp/tflint.zip
+USER root
+RUN apk add --no-cache wget unzip && \
+    rm -rf /var/cache/apk/*
 
-RUN mkdir -p ~/.tflint.d/plugins
+USER nonroot
+RUN mkdir -p ~/bin && \
+    mkdir -p ~/.tflint.d/plugins
+
+RUN wget -O /tmp/tflint.zip https://github.com/terraform-linters/tflint/releases/download/v"${TFLINT_VERSION#v}"/tflint_"${TARGETOS}"_"${TARGETARCH}".zip \
+  && unzip /tmp/tflint.zip -d /home/nonroot/bin \
+  && rm /tmp/tflint.zip
 
 RUN wget -O /tmp/tflint-ruleset-aws.zip https://github.com/terraform-linters/tflint-ruleset-aws/releases/download/v"${AWS_VERSION#v}"/tflint-ruleset-aws_"${TARGETOS}"_"${TARGETARCH}".zip \
   && unzip /tmp/tflint-ruleset-aws.zip -d ~/.tflint.d/plugins \
@@ -63,8 +69,8 @@ LABEL org.opencontainers.image.title="tflint" \
       org.opencontainers.image.src="https://github.com/tbckr/dockerfiles/tree/main/tflint" \
       org.opencontainers.image.license="MIT"
 
-COPY --from=builder /usr/local/bin/tflint /tflint
-COPY --from=builder /root/.tflint.d /home/nonroot/.tflint.d
+COPY --from=builder /home/nonroot/bin/tflint /tflint
+COPY --from=builder /home/nonroot/.tflint.d /home/nonroot/.tflint.d
 
 VOLUME /data
 WORKDIR /data
