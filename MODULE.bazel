@@ -1,2 +1,0 @@
-## MODULE.bazel
-bazel_dep(name = "rules_oci", version = "1.5.1")
