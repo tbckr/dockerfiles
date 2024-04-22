@@ -19,10 +19,10 @@
 #
 # SPDX-License-Identifier: MIT
 
-FROM golang:1.22.2-alpine AS builder
+FROM golang:1.22.2-alpine@sha256:cdc86d9f363e8786845bea2040312b4efa321b828acdeb26f393faa864d887b0 AS builder
 RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest && \
     xcaddy build \
         --with github.com/tailscale/caddy-tailscale
 
-FROM caddy:2-alpine
+FROM caddy:2-alpine@sha256:95ce04978787e23e35143d23b8af2fbb6d6de55213b54a2e9ed2dbf8ffe7313c
 COPY --from=builder /go/caddy /usr/bin/caddy
