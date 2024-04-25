@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG IMAGE=cgr.dev/chainguard/node:18.17@sha256:af073516c203b6bd0b55a77a806a0950b486f2e9ea7387a32b0f41ea72f20886
+ARG IMAGE=node:18-alpine
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=release-please
@@ -34,8 +34,6 @@ LABEL org.opencontainers.image.title="release-please" \
 VOLUME /app
 WORKDIR /app
 
-USER root
 RUN npm install -g release-please@${RELEASE_PLEASE_VERSION}
 
-USER node
 ENTRYPOINT ["release-please"]
