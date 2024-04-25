@@ -19,17 +19,8 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG IMAGE_1=cgr.dev/chainguard/python:3.11-dev@sha256:d7e843a54d480a6941c2d560c7408f93fb726ffdfdf7454d43b8907a35df292f
-ARG IMAGE_2=cgr.dev/chainguard/python:3.11@sha256:6e512c60467cb53572112d8b5f1200d93cc7f883db01e57836fd93754f6bb4e8
-
-FROM ${IMAGE_1} as builder
-
-WORKDIR /app
-
-USER nonroot
-RUN pip install trafilatura
-
-FROM ${IMAGE_2}
+ARG IMAGE=python:3.11-alpine
+FROM ${IMAGE}
 
 LABEL org.opencontainers.image.title="trafilatura" \
       org.opencontainers.image.description="trafilatura" \
@@ -39,10 +30,8 @@ LABEL org.opencontainers.image.title="trafilatura" \
 
 WORKDIR /app
 
-ENV PATH=$PATH:/home/nonroot/.local/bin
+ENV PATH=$PATH:${HOME}/.local/bin
 
-# Make sure you update Python version in path
-COPY --from=builder /home/nonroot/.local/lib/python3.11/site-packages /home/nonroot/.local/lib/python3.11/site-packages
-COPY --from=builder /home/nonroot/.local/bin /home/nonroot/.local/bin
+RUN pip install trafilatura
 
 ENTRYPOINT [ "trafilatura" ]
