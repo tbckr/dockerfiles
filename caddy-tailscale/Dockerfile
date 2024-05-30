@@ -24,5 +24,5 @@ RUN go install github.com/caddyserver/xcaddy/cmd/xcaddy@latest && \
     xcaddy build \
         --with github.com/tailscale/caddy-tailscale
 
-FROM caddy:2-alpine@sha256:2e1d4592f1718bb47645da5a83a846fe19094f18e6c921fdf56d174f05c63213
+FROM caddy:2-alpine@sha256:7750cb6f08350f2c39207ea87232f7b278f586410232e912542f1d128995636c
 COPY --from=builder /go/caddy /usr/bin/caddy
