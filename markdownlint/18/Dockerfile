@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG IMAGE=node:18-alpine@sha256:9f5342b67f9430a8826ee0def80db9fee61ec3980cfb929d480e3bfc200c39de
+ARG IMAGE=node:18-alpine@sha256:f178e794fca41e13805253a47fc3430fcca54ae0aefcb9d0403c23a7ed400b30
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=markdownlint-cli
