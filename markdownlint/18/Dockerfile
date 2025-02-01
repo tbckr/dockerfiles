@@ -23,7 +23,7 @@ ARG IMAGE=node:18-alpine@sha256:974afb6cbc0314dc6502b14243b8a39fbb2d04d975e9059d
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=markdownlint-cli
-ENV MARKDOWNLINT_VERSION=0.43.0
+ENV MARKDOWNLINT_VERSION=0.44.0
 
 LABEL org.opencontainers.image.title="markdownlint" \
       org.opencontainers.image.description="markdownlint" \
