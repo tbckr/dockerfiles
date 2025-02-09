@@ -28,7 +28,7 @@ ENV TARGETOS=linux
 ENV TARGETARCH=amd64
 
 # renovate: datasource=github-releases depName=terraform-linters/tflint
-ENV TFLINT_VERSION=v0.55.0
+ENV TFLINT_VERSION=v0.55.1
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-aws
 ENV AWS_VERSION=v0.37.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-azurerm
