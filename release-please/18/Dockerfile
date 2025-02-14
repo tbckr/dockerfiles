@@ -19,7 +19,7 @@
 #
 # SPDX-License-Identifier: MIT
 
-ARG IMAGE=node:18-alpine@sha256:974afb6cbc0314dc6502b14243b8a39fbb2d04d975e9059dd066be3e274fbb25
+ARG IMAGE=node:18-alpine@sha256:05d417f456ffc919d5c413895fe6c5b13a17deee3475d7a3fb8e7ea72bb463d8
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=release-please
