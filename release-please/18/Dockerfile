@@ -23,7 +23,7 @@ ARG IMAGE=node:18-alpine@sha256:e0340f26173b41066d68e3fe9bfbdb6571ab3cad0a427291
 FROM ${IMAGE}
 
 # renovate: datasource=npm depName=release-please
-ENV RELEASE_PLEASE_VERSION=16.16.0
+ENV RELEASE_PLEASE_VERSION=16.17.0
 
 LABEL org.opencontainers.image.title="release-please" \
       org.opencontainers.image.description="release-please" \
