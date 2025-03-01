@@ -34,7 +34,7 @@ ENV AWS_VERSION=v0.37.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-azurerm
 ENV AZURERM_VERSION=v0.27.0
 # renovate: datasource=github-releases depName=terraform-linters/tflint-ruleset-google
-ENV GOOGLE_VERSION=v0.30.0
+ENV GOOGLE_VERSION=v0.31.0
 
 USER root
 RUN apk add --no-cache wget unzip && \
