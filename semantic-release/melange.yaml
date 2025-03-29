@@ -1,0 +1,42 @@
+package:
+  name: hello-minicli
+  version: 0.1.0
+  description: Minicli melange demo
+  target-architecture:
+    - all
+  copyright:
+    - license: MIT
+  dependencies:
+    runtime:
+      - php
+      - php-curl
+
+environment:
+  contents:
+    keyring:
+      - https://packages.wolfi.dev/os/wolfi-signing.rsa.pub
+      - ./melange.rsa.pub
+    repositories:
+      - https://packages.wolfi.dev/os
+    packages:
+      - ca-certificates-bundle
+      - busybox
+      - curl
+      - git
+      - php
+      - php-phar
+      - php-iconv
+      - php-openssl
+      - php-curl
+      - composer
+
+pipeline:
+  - name: Build Minicli application
+    runs: |
+      MINICLI_HOME="${{targets.destdir}}/usr/share/minicli"
+      EXEC_DIR="${{targets.destdir}}/usr/bin"
+      mkdir -p "${MINICLI_HOME}" "${EXEC_DIR}"
+      cp ./composer.json "${MINICLI_HOME}"
+      /usr/bin/composer install -d "${MINICLI_HOME}" --no-dev
+      cp ./minicli "${EXEC_DIR}"
+      chmod +x "${EXEC_DIR}/minicli"

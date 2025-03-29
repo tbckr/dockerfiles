@@ -1,0 +1,1 @@
+bazel_dep(name = "rules_apko", version = "1.0.0-rc1")
