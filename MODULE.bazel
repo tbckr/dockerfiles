@@ -1,1 +1,1 @@
-bazel_dep(name = "rules_apko", version = "1.5.17")
+bazel_dep(name = "rules_apko", version = "1.5.21")
