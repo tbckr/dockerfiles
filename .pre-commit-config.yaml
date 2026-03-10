@@ -11,7 +11,7 @@ repos:
       - id: check-executables-have-shebangs
 
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.47.0
+    rev: v0.48.0
     hooks:
       - id: markdownlint-docker
 
